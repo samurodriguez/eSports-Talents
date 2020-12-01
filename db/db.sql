@@ -128,10 +128,13 @@ DROP TABLE IF EXISTS `post`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `post` (
   `id_post` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL,
   `texto` varchar(500) DEFAULT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `video` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id_post`)
+  PRIMARY KEY (`id_post`),
+  KEY `id_usuario` (`id_usuario`),
+  CONSTRAINT `post_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -319,4 +322,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-29 21:18:45
+-- Dump completed on 2020-12-01  2:58:39
