@@ -1,0 +1,1202 @@
+{
+	"info": {
+		"_postman_id": "75d7adac-552c-4595-8a54-dc5b6f0baecd",
+		"name": "esports_talents_test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Team signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Giants eSports\",\r\n    \"email\": \"giantsesports@outlook.com\",\r\n    \"password\": \"giants2000\",\r\n    \"repeatPassword\": \"giants2000\",\r\n    \"foundationDate\": \"2015-01-01\",\r\n    \"logo\": null,\r\n    \"province\": \"Madrid\",\r\n    \"tel\": \"981733384\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/teamSignup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teamSignup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Team signup 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Mav3ricks eSports\",\r\n    \"email\": \"mavericksesports@outlook.com\",\r\n    \"password\": \"mavericksiscool\",\r\n    \"repeatPassword\": \"mavericksiscool\",\r\n    \"foundationDate\": \"2018-02-15\",\r\n    \"logo\": null,\r\n    \"province\": \"Málaga\",\r\n    \"tel\": \"981927659\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/teamSignup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teamSignup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Scout signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"role\": \"scout\",\r\n    \"name\": \"Pepe\",\r\n    \"lastname\": \"Núñez García\",\r\n    \"email\": \"pepegonzalez@outlook.com\",\r\n    \"nickname\": \"Pepinero\",\r\n    \"password\": \"123456\",\r\n    \"repeatPassword\": \"123456\",\r\n    \"birth\": \"2003-12-31\",\r\n    \"tel\": \"639372716\",\r\n    \"province\": \"La Coruña\",\r\n    \"photo\": null,\r\n    \"bio\": null,\r\n    \"fav_team\": null,\r\n    \"team\": \"1\",\r\n    \"position\": null,\r\n    \"rank\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Player signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"role\": \"player\",\r\n    \"name\": \"Samuel\",\r\n    \"lastname\": \"Rodríguez Rey\",\r\n    \"email\": \"samuelrodriguezrey@outlook.com\",\r\n    \"nickname\": \"Panker\",\r\n    \"password\": \"panker2000\",\r\n    \"repeatPassword\": \"panker2000\",\r\n    \"birth\": \"2000-03-10\",\r\n    \"tel\": \"608555883\",\r\n    \"province\": \"La Coruña\",\r\n    \"photo\": null,\r\n    \"bio\": null,\r\n    \"fav_team\": null,\r\n    \"team\": \"2\",\r\n    \"position\": \"top\",\r\n    \"rank\": \"Diamante II\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Player signup 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"role\": \"player\",\r\n    \"name\": \"Ignacio\",\r\n    \"lastname\": \"Márquez Diaz\",\r\n    \"email\": \"ignaciomarquezdiaz@outlook.com\",\r\n    \"nickname\": \"Nakoo\",\r\n    \"password\": \"hereticsnakoo\",\r\n    \"repeatPassword\": \"hereticsnakoo\",\r\n    \"birth\": \"2003-08-15\",\r\n    \"tel\": \"608386172\",\r\n    \"province\": \"Madrid\",\r\n    \"team\": \"2\",\r\n    \"position\": \"mid\",\r\n    \"rank\": \"Challenger\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Amateur signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"role\": \"amateur\",\r\n    \"name\": \"Lucas\",\r\n    \"lastname\": \"Vázquez Otero\",\r\n    \"email\": \"lucasvazquez@outlook.com\",\r\n    \"nickname\": \"LucasV\",\r\n    \"password\": \"miamimeloconfirmo\",\r\n    \"repeatPassword\": \"miamimeloconfirmo\",\r\n    \"birth\": \"1995-05-02\",\r\n    \"tel\": \"639527582\",\r\n    \"province\": \"Barcelona\",\r\n    \"photo\": null,\r\n    \"bio\": null,\r\n    \"fav_team\": \"Mav3ricks eSports\",\r\n    \"team\": null,\r\n    \"position\": null,\r\n    \"rank\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Scout login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"pepegonzalez@outlook.com\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Player login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"samuelrodriguezrey@outlook.com\",\n    \"password\": \"panker2000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Player login 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"ignaciomarquezdiaz@outlook.com\",\n    \"password\": \"hereticsnakoo\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Amateur login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"lucasvazquez@outlook.com\",\n    \"password\": \"miamimeloconfirmo\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login team",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"giantsesports@outlook.com\",\n    \"password\": \"giants2000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJOYW1lIjoiUGVwZSIsInVzZXJFbWFpbCI6InBlcGVnb256YWxlekBvdXRsb29rLmNvbSIsImlhdCI6MTYxMDU1MzM3MCwiZXhwIjoxNjEzMTQ1MzcwfQ.aJV43uOeCJEDtIQeBDvKCV26qIR67b4nxyUNls_X3vg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Hola\",\r\n    \"content\": \"Esto es un post escrito por Pepe\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/home",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJOYW1lIjoiU2FtdWVsIiwidXNlckVtYWlsIjoic2FtdWVscm9kcmlndWV6cmV5QG91dGxvb2suY29tIiwiaWF0IjoxNjEwNjIyOTI2LCJleHAiOjE2MTMyMTQ5MjZ9.ZP9ftBOskgK2c062ChVR4KWCJWaOry49RT7kYRiSN6o",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Hola amigos\",\r\n    \"content\": \"Esto es un post escrito por Samuel\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/home",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post 3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJOYW1lIjoiTHVjYXMiLCJ1c2VyRW1haWwiOiJsdWNhc3ZhenF1ZXpAb3V0bG9vay5jb20iLCJpYXQiOjE2MTA2MzMxMjAsImV4cCI6MTYxMzIyNTEyMH0.jaeR_stlLnlHYjCS3waPqPp88fqcK9dL6PW9ix-tUmM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Hola amigos\",\r\n    \"content\": \"Esto es un post escrito por Lucas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/home",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post 4",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJOYW1lIjoiSWduYWNpbyIsInVzZXJFbWFpbCI6ImlnbmFjaW9tYXJxdWV6ZGlhekBvdXRsb29rLmNvbSIsInVzZXJSb2xlIjoicGxheWVyIiwiaWF0IjoxNjEwNzE3MTc5LCJleHAiOjE2MTMzMDkxNzl9.vv9YdvBa3aQhlCkt-5TzJXyI0mcdwsRx1Q3DKgPof_c",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Ey\",\r\n    \"content\": \"Esto es un post escrito por Nakoo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/home",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Follow",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJOYW1lIjoiUGVwZSIsInVzZXJFbWFpbCI6InBlcGVnb256YWxlekBvdXRsb29rLmNvbSIsImlhdCI6MTYxMDU1MzY4MSwiZXhwIjoxNjEzMTQ1NjgxfQ.wAXGe6XjNpFzCLkmNPRZMx-AbHkb6_RlVOCn92i5ohc",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/user/3/follow",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"3",
+						"follow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Follow 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJOYW1lIjoiU2FtdWVsIiwidXNlckVtYWlsIjoic2FtdWVscm9kcmlndWV6cmV5QG91dGxvb2suY29tIiwiaWF0IjoxNjEwNTU0MjEzLCJleHAiOjE2MTMxNDYyMTN9.5zQclXfMeJe6VsC-tvvfqBCpRzXZMlzGWnFFc30GIck",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/user/3/follow",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"3",
+						"follow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Follow 3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJOYW1lIjoiTHVjYXMiLCJ1c2VyRW1haWwiOiJsdWNhc3ZhenF1ZXpAb3V0bG9vay5jb20iLCJpYXQiOjE2MTA2MjkyMjEsImV4cCI6MTYxMzIyMTIyMX0.nMxUr0Md--06EsMWmTVJVf7AuAKY9AVD5Tw1-Mj7sCM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/user/3/follow",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"3",
+						"follow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unfollow",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJOYW1lIjoiU2FtdWVsIiwidXNlckVtYWlsIjoic2FtdWVscm9kcmlndWV6cmV5QG91dGxvb2suY29tIiwidXNlclJvbGUiOiJwbGF5ZXIiLCJpYXQiOjE2MTA3MjQ2NTIsImV4cCI6MTYxMzMxNjY1Mn0.tiuiL7XAcBcsH7KE3PMzV3_WEJ0ynJg2KHOry96c5pk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/user/3/unfollow",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"3",
+						"unfollow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJOYW1lIjoiUGVwZSIsInVzZXJFbWFpbCI6InBlcGVnb256YWxlekBvdXRsb29rLmNvbSIsImlhdCI6MTYxMDU1NDg4NywiZXhwIjoxNjEzMTQ2ODg3fQ.E310TJAoPC82MaIiRy-htDpf4YrXhvul2oDWvulXGCU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nickname\": \"Pepito\",\r\n    \"tel\": \"698275827\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/1/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"1",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update team",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZWFtSWQiOjEsInRlYW1OYW1lIjoiR2lhbnRzIGVTcG9ydHMiLCJ0ZWFtRW1haWwiOiJnaWFudHNlc3BvcnRzQG91dGxvb2suY29tIiwiaWF0IjoxNjEwNTU3MTE2LCJleHAiOjE2MTMxNDkxMTZ9.ClGbKaUITNRxivd3KNTHpRy-EvDKyC7UpYk_Tyw9-M4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"province\": \"Madrid\",\r\n    \"tel\": \"981844920\",\r\n    \"password\": \"giants2000\",\r\n    \"playerToRemove\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/team/1/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"team",
+						"1",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recruitment request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJOYW1lIjoiUGVwZSIsInVzZXJFbWFpbCI6InBlcGVnb256YWxlekBvdXRsb29rLmNvbSIsImlhdCI6MTYxMDYyNjkyNCwiZXhwIjoxNjEzMjE4OTI0fQ.bK7ezJQBNChdZ4FaPtFqHZpX4S5tLlwsBA0LexNJ8ug",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Oferta Giants eSports\",\r\n    \"content\": \"Hola Panker, estamos interesados en negociar tu contrato con Mav3ricks eSports\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/2/request",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"2",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recruitment request 2 (ERROR_TEST)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJOYW1lIjoiU2FtdWVsIiwidXNlckVtYWlsIjoic2FtdWVscm9kcmlndWV6cmV5QG91dGxvb2suY29tIiwiaWF0IjoxNjEwNjI3MzY2LCJleHAiOjE2MTMyMTkzNjZ9.e0YoG4Oqae3SZ-lHfhlhDmjV_SiA1mspkfkkaPcXGqU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Oferta Giants eSports\",\r\n    \"content\": \"Hola Panker, estamos interesados en negociar tu contrato con Mav3ricks eSports\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/1/request",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"1",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete request",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJOYW1lIjoiU2FtdWVsIiwidXNlckVtYWlsIjoic2FtdWVscm9kcmlndWV6cmV5QG91dGxvb2suY29tIiwidXNlclJvbGUiOiJwbGF5ZXIiLCJpYXQiOjE2MTA3MTQzOTksImV4cCI6MTYxMzMwNjM5OX0.ENH-yVR1AQTtHrFKMEEEgk-UeCct6QtnY2z1YDUnxho",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/requests/1/2/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"requests",
+						"1",
+						"2",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Comment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJOYW1lIjoiU2FtdWVsIiwidXNlckVtYWlsIjoic2FtdWVscm9kcmlndWV6cmV5QG91dGxvb2suY29tIiwiaWF0IjoxNjEwNjM4NjgwLCJleHAiOjE2MTMyMzA2ODB9.0qRZ5trdU974n2-Qd5DNRb3s7KAtJWykPDNre71GpFE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"Muy buen post Pepe!!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/post/1/comment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"1",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Comment 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJOYW1lIjoiUGVwZSIsInVzZXJFbWFpbCI6InBlcGVnb256YWxlekBvdXRsb29rLmNvbSIsImlhdCI6MTYxMDY1MDM5NywiZXhwIjoxNjEzMjQyMzk3fQ.bHqXbtMSc0sLmnb4XetkACwFX9kIUNY6Jx2gbn5J-F0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"Me ha encantado tu post, Lucas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/post/3/comment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"3",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete comment",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJOYW1lIjoiU2FtdWVsIiwidXNlckVtYWlsIjoic2FtdWVscm9kcmlndWV6cmV5QG91dGxvb2suY29tIiwiaWF0IjoxNjEwNjM4NjgwLCJleHAiOjE2MTMyMzA2ODB9.0qRZ5trdU974n2-Qd5DNRb3s7KAtJWykPDNre71GpFE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"Muy buen post Pepe!!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/post/1/comment/6/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"1",
+						"comment",
+						"6",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Like",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJOYW1lIjoiU2FtdWVsIiwidXNlckVtYWlsIjoic2FtdWVscm9kcmlndWV6cmV5QG91dGxvb2suY29tIiwiaWF0IjoxNjEwNjUwMDYyLCJleHAiOjE2MTMyNDIwNjJ9.FsbkeVEuv8g6gHAMHGmicLUbCY87UBu-9v1eIX07m3U",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/post/1/like",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"1",
+						"like"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unlike",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJOYW1lIjoiU2FtdWVsIiwidXNlckVtYWlsIjoic2FtdWVscm9kcmlndWV6cmV5QG91dGxvb2suY29tIiwiaWF0IjoxNjEwNjUwMDYyLCJleHAiOjE2MTMyNDIwNjJ9.FsbkeVEuv8g6gHAMHGmicLUbCY87UBu-9v1eIX07m3U",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/post/1/unlike",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"1",
+						"unlike"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Share",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJOYW1lIjoiU2FtdWVsIiwidXNlckVtYWlsIjoic2FtdWVscm9kcmlndWV6cmV5QG91dGxvb2suY29tIiwidXNlclJvbGUiOiJwbGF5ZXIiLCJpYXQiOjE2MTA3MTcxMjksImV4cCI6MTYxMzMwOTEyOX0.lKamaxBaIjSaa389iaQh9I7bUX3vdbeqKpGAp63xfeY",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/post/1/share",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"1",
+						"share"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Share 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJOYW1lIjoiUGVwZSIsInVzZXJFbWFpbCI6InBlcGVnb256YWxlekBvdXRsb29rLmNvbSIsInVzZXJSb2xlIjoic2NvdXQiLCJpYXQiOjE2MTA3NDExNzUsImV4cCI6MTYxMzMzMzE3NX0.gmUWN8ysuq5g7CPGT--0beKQzKcQu-k2L1ac4zc-LGE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/post/4/share",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"4",
+						"share"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unshare",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJOYW1lIjoiU2FtdWVsIiwidXNlckVtYWlsIjoic2FtdWVscm9kcmlndWV6cmV5QG91dGxvb2suY29tIiwidXNlclJvbGUiOiJwbGF5ZXIiLCJpYXQiOjE2MTA3MTcxMjksImV4cCI6MTYxMzMwOTEyOX0.lKamaxBaIjSaa389iaQh9I7bUX3vdbeqKpGAp63xfeY",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/post/1/unshare",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"1",
+						"unshare"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Home",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJOYW1lIjoiTHVjYXMiLCJ1c2VyRW1haWwiOiJsdWNhc3ZhenF1ZXpAb3V0bG9vay5jb20iLCJ1c2VyUm9sZSI6ImFtYXRldXIiLCJpYXQiOjE2MTA3MTY5MDgsImV4cCI6MTYxMzMwODkwOH0.bdX3wDb-Nx1Tb6rmkVsAORIhjSQSrqDjBW9MpkZjDTY",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/home",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user profile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get team profile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/team/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"team",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get post",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/post/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get requests",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJOYW1lIjoiU2FtdWVsIiwidXNlckVtYWlsIjoic2FtdWVscm9kcmlndWV6cmV5QG91dGxvb2suY29tIiwidXNlclJvbGUiOiJwbGF5ZXIiLCJpYXQiOjE2MTA3MDk2NzQsImV4cCI6MTYxMzMwMTY3NH0.mS8Bndycr0XDIHNMvkqGmUuXAQRppsyLznuY7y6aJIs",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/requests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get requests (ERROR AMATEUR)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJOYW1lIjoiTHVjYXMiLCJ1c2VyRW1haWwiOiJsdWNhc3ZhenF1ZXpAb3V0bG9vay5jb20iLCJ1c2VyUm9sZSI6ImFtYXRldXIiLCJpYXQiOjE2MTA3MDk2MDUsImV4cCI6MTYxMzMwMTYwNX0.Lc7dEo9zJAsDyLAyIRvWeUKgLlrwhpoXrPLfbM-5KEQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/requests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get request",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJOYW1lIjoiU2FtdWVsIiwidXNlckVtYWlsIjoic2FtdWVscm9kcmlndWV6cmV5QG91dGxvb2suY29tIiwidXNlclJvbGUiOiJwbGF5ZXIiLCJpYXQiOjE2MTA3MTM5NDIsImV4cCI6MTYxMzMwNTk0Mn0.UfpIkbLkpK3xC4c9lCwwg-BSxK5y9IlvOGoyWefAB8c",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/requests/1/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"requests",
+						"1",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get request (ERROR NO AUTORIZADO)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJOYW1lIjoiTHVjYXMiLCJ1c2VyRW1haWwiOiJsdWNhc3ZhenF1ZXpAb3V0bG9vay5jb20iLCJ1c2VyUm9sZSI6ImFtYXRldXIiLCJpYXQiOjE2MTA3MTQwNDEsImV4cCI6MTYxMzMwNjA0MX0.h1YQE6TLT1Kn7DLdNMC6JM7WxjtBN0EebaSwLHhGQ2c",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/requests/1/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"requests",
+						"1",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
