@@ -2,7 +2,7 @@
 
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
-const { commentsRepository } = require('../repositories');
+const { commentsRepository, notificationsRepository } = require('../repositories');
 
 async function createComment(req, res) {
   try {
@@ -35,6 +35,7 @@ async function deleteComment(req, res) {
     const { userId } = decodedToken;
     const commentId = req.params.commentId;
 
+    await notificationsRepository.deleteNotificationByCommentId(commentId);
     const affectedRows = await commentsRepository.deleteComment(userId, commentId);
 
     if (affectedRows === 0) {

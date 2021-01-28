@@ -3,7 +3,7 @@
 const bcrypt = require('bcryptjs');
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
-// const sengrid = require('@sendgrid/mail');
+const mailgun = require('mailgun-js');
 const { usersRepository, teamsRepository, postsRepository } = require('../repositories');
 
 async function register(req, res) {
@@ -11,20 +11,20 @@ async function register(req, res) {
     const registerSchema = Joi.object({
       role: Joi.string().valid('amateur', 'player', 'scout').required(),
       name: Joi.string().max(40).required(),
-      lastname: Joi.string().max(100).allow(null, ''),
+      lastname: Joi.string().max(100).allow(null),
       email: Joi.string().email().max(100).required(),
       nickname: Joi.string().max(40).required(),
       password: Joi.string().min(4).max(20).required(),
       repeatPassword: Joi.ref('password'),
-      birth: Joi.string().max(20).allow(null, ''),
-      tel: Joi.string().max(9).allow(null, ''),
-      province: Joi.string().max(40).allow(null, ''),
-      photo: Joi.string().max(255).allow(null, ''),
-      bio: Joi.string().max(500).allow(null, ''),
-      fav_team: Joi.string().max(40).allow(null, ''),
-      team: Joi.string().max(40).allow(null, ''),
-      position: Joi.string().valid('top', 'jungle', 'mid', 'adc', 'support').allow(null, ''),
-      rank: Joi.string().max(20).allow(null, ''),
+      birth: Joi.string().max(20).allow(null),
+      tel: Joi.string().max(9).allow(null),
+      province: Joi.string().max(40).allow(null),
+      photo: Joi.string().max(255).allow(null),
+      bio: Joi.string().max(500).allow(null),
+      fav_team: Joi.string().max(40).allow(null),
+      team: Joi.string().max(40).allow(null),
+      position: Joi.string().valid('top', 'jungle', 'mid', 'adc', 'support').allow(null),
+      rank: Joi.string().max(2).allow(null),
     });
 
     await registerSchema.validateAsync(req.body);
@@ -73,6 +73,15 @@ async function register(req, res) {
       position,
       rank
     );
+
+    const mg = mailgun({ apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN });
+    const data = {
+      from: 'eSports Talents <esportstalents@outlook.com>',
+      to: `${email}`,
+      subject: `¡Bienvenido ${name}!`,
+      text: `¡Bienvenido a eSports Talents ${name}!\nEsperamos que disfrutes de la página, si tienes alguna duda o problema no dudes en contactar con nuestro equipo de soporte :)`,
+    };
+    await mg.messages().send(data);
 
     return res.send({ userId: userId });
   } catch (err) {
@@ -392,24 +401,45 @@ async function userUnsharesPost(req, res) {
   }
 }
 
-//! Falta finalizar el controller de explorar
+async function explore(req, res) {
+  try {
+    const queryType = req.query.type;
+    const querySchema = Joi.string().valid('name', 'rank', 'age', 'role', 'position', 'province', 'team');
+    await querySchema.validateAsync(queryType);
 
-// async function explore(req, res) {
-//   try {
-//     const users = await usersRepository.getUsersByName('o');
-//     const users = await usersRepository.getUsersByRole('player');
-//     const users = await usersRepository.getUsersByPosition('mid');
-//     const users = await usersRepository.getUsersByProvince('Madrid');
-//     const users = await usersRepository.getUsersByTeam("2");
-//     const users = await usersRepository.getUsersByAge('DESC');
-//     const users = await usersRepository.getUsersByRank();
+    let users = [];
 
-//     res.send(users);
-//   } catch (err) {
-//     console.log(err);
-//     res.send(err.message);
-//   }
-// }
+    if (queryType === 'name') {
+      const nameQuery = req.query.name;
+      users = await usersRepository.getUsersByName(nameQuery);
+    } else if (queryType === 'rank') {
+      const rankOrder = req.query.order;
+      users = await usersRepository.getUsersByRank(rankOrder);
+    } else if (queryType === 'age') {
+      const ageOrder = req.query.order;
+      users = await usersRepository.getUsersByAge(ageOrder);
+    } else if (queryType === 'role') {
+      const role = req.query.role;
+      users = await usersRepository.getUsersByRole(role);
+    } else if (queryType === 'position') {
+      const position = req.query.position;
+      users = await usersRepository.getUsersByPosition(position);
+    } else if (queryType === 'province') {
+      const province = req.query.province;
+      users = await usersRepository.getUsersByProvince(province);
+    } else if (queryType === 'team') {
+      const team = req.query.team;
+      users = await usersRepository.getUsersByTeam(team);
+    } else {
+      throw new Error('Búsqueda inválida');
+    }
+
+    res.send(users);
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+}
 
 module.exports = {
   register,
@@ -422,5 +452,5 @@ module.exports = {
   userUnlikesPost,
   userSharesPost,
   userUnsharesPost,
-  // explore,
+  explore,
 };

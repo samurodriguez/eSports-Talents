@@ -5,6 +5,7 @@ const usersController = require('./users-controller');
 const postsController = require('./posts-controller');
 const commentsController = require('./comments-controller');
 const requestsController = require('./requests-controller');
+const notificationsController = require('./notifications-controller');
 
 module.exports = {
   teamsController,
@@ -12,4 +13,5 @@ module.exports = {
   postsController,
   commentsController,
   requestsController,
+  notificationsController,
 };

@@ -1,18 +1,8 @@
 'use strict';
 
 const database = require('../infrastructure/database');
-
-function formatDate(date) {
-  const padNumber = (number) => `${number}`.padStart(2, '0');
-  const s = padNumber(date.getSeconds());
-  const m = padNumber(date.getMinutes());
-  const h = padNumber(date.getHours());
-  const YYYY = date.getFullYear();
-  const MM = date.getMonth() + 1;
-  const DD = padNumber(date.getDate());
-
-  return `${YYYY}-${MM}-${DD} ${h}:${m}:${s}`;
-}
+const notificationsRepository = require('./notifications-repository');
+const formatDate = require('../utils/formatDate');
 
 async function getRequestById(scoutId, playerId) {
   const pool = await database.getPool();
@@ -34,6 +24,8 @@ async function createRequest(scoutId, playerId, title, content) {
     scoutId: scoutId,
     playerId: playerId,
   };
+
+  await notificationsRepository.notify(scoutId, playerId, 'request');
 
   return requestId;
 }
@@ -64,4 +56,22 @@ async function getUserRequests(userId, role) {
   return requests;
 }
 
-module.exports = { createRequest, deleteRequest, getUserRequests, getRequestById };
+async function acceptRequest(scoutId, playerId) {
+  const pool = await database.getPool();
+
+  const acceptRequest = 'UPDATE recruitment_request SET req_status = true WHERE scout_id = ? AND player_id = ?';
+  const [acceptedRequest] = await pool.query(acceptRequest, [scoutId, playerId]);
+
+  return acceptedRequest;
+}
+
+async function rejectRequest(scoutId, playerId) {
+  const pool = await database.getPool();
+
+  const rejectRequest = 'UPDATE recruitment_request SET req_status = false WHERE scout_id = ? AND player_id = ?';
+  const [rejectedRequest] = await pool.query(rejectRequest, [scoutId, playerId]);
+
+  return rejectedRequest;
+}
+
+module.exports = { createRequest, deleteRequest, getUserRequests, getRequestById, acceptRequest, rejectRequest };

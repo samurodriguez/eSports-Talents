@@ -14,8 +14,10 @@ const {
   postsController,
   requestsController,
   commentsController,
+  notificationsController,
 } = require('./controllers');
 const { validateAuth, notFound } = require('./middlewares');
+const { notificationsRepository } = require('./repositories');
 
 // Variables
 const port = process.env.SERVER_PORT;
@@ -35,11 +37,14 @@ app.post('/signup', usersController.register);
 app.post('/teamSignup', teamsController.registerTeam);
 
 // Login
+app.get('/login', async (req, res) => {
+  res.send('Esta sería la página de login');
+});
 app.post('/login', usersController.login);
 
 // Users
 app.get('/home', validateAuth, postsController.getFollowingUsersPosts);
-//! app.get('/explore/', usersController.explore);  Aún no está acabada
+app.get('/explore', usersController.explore);
 app.get('/user/:userId', usersController.getProfile);
 app.put('/user/:userId/update', validateAuth, usersController.update);
 app.post('/user/:userId/follow', validateAuth, usersController.followUser);
@@ -65,7 +70,12 @@ app.delete('/post/:postId/comment/:commentId/delete', validateAuth, commentsCont
 app.get('/requests', validateAuth, requestsController.getUserRequests);
 app.get('/requests/:scoutId/:playerId', validateAuth, requestsController.getRequest);
 app.post('/user/:userId/request', validateAuth, requestsController.sendRequest);
+app.put('/requests/:scoutId/:playerId/accept', validateAuth, requestsController.acceptRequest);
+app.put('/requests/:scoutId/:playerId/reject', validateAuth, requestsController.rejectRequest);
 app.delete('/requests/:scoutId/:playerId/delete', validateAuth, requestsController.deleteRequest);
+
+// Notifications
+app.get('/notifications', validateAuth, notificationsController.getUserNotifications);
 
 // Not found
 app.get('*', notFound);

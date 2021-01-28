@@ -5,6 +5,7 @@ const teamsRepository = require('./teams-repository');
 const postsRepository = require('./posts-repository');
 const commentsRepository = require('./comments-repository');
 const requestsRepository = require('./requests-repository');
+const notificationsRepository = require('./notifications-repository');
 
 module.exports = {
   usersRepository,
@@ -12,4 +13,5 @@ module.exports = {
   postsRepository,
   commentsRepository,
   requestsRepository,
+  notificationsRepository,
 };

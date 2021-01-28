@@ -2,18 +2,20 @@
 
 const database = require('../infrastructure/database');
 const { getFollowingUsers } = require('./users-repository');
+const formatDate = require('../utils/formatDate');
 
 async function createPost(userId, title, content) {
   const pool = await database.getPool();
-  const insertPost = 'INSERT INTO post (usr_id, post_title, post_content) VALUES (?, ?, ?)';
-  const [createdPost] = await pool.query(insertPost, [userId, title, content]);
+  const postDate = formatDate(new Date());
+  const insertPost = 'INSERT INTO post (usr_id, post_title, post_content, post_date) VALUES (?, ?, ?, ?)';
+  const [createdPost] = await pool.query(insertPost, [userId, title, content, postDate]);
 
   return createdPost.insertId;
 }
 
 async function getUserPosts(userId) {
   const pool = await database.getPool();
-  const query = 'SELECT * FROM post WHERE usr_id = ?';
+  const query = 'SELECT * FROM post WHERE usr_id = ? ORDER BY post_date DESC';
   const [posts] = await pool.query(query, userId);
 
   return posts;
@@ -21,8 +23,10 @@ async function getUserPosts(userId) {
 
 async function getFollowingUsersPosts(userId) {
   const pool = await database.getPool();
+
   const followingIds = await getFollowingUsers(userId);
-  const query = `SELECT * FROM post p INNER JOIN user u ON u.usr_id = p.usr_id LEFT JOIN user_shares s ON p.post_id = s.post_id WHERE p.usr_id IN (${followingIds.toString()}) OR s.usr_id IN (${followingIds.toString()})`;
+
+  const query = `SELECT * FROM post p INNER JOIN user u ON u.usr_id = p.usr_id LEFT JOIN user_shares s ON p.post_id = s.post_id WHERE p.usr_id IN (${followingIds.toString()}) OR s.usr_id IN (${followingIds.toString()}) ORDER BY post_date DESC`;
   const [posts] = await pool.query(query);
 
   return posts;

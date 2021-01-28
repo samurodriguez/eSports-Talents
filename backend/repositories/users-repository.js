@@ -1,6 +1,7 @@
 'use strict';
 
 const database = require('../infrastructure/database');
+const notificationsRepository = require('./notifications-repository');
 
 async function getUserByEmail(email) {
   const pool = await database.getPool();
@@ -107,6 +108,8 @@ async function follow(userFollowing, userFollowed) {
   await pool.query(insertFollow, [userFollowing, userFollowed]);
   const followId = `${userFollowing}${userFollowed}`;
 
+  await notificationsRepository.notify(userFollowing, userFollowed, 'follow');
+
   return followId;
 }
 
@@ -150,6 +153,10 @@ async function like(userId, postId) {
   await pool.query(insertLike, [userId, postId]);
   const likeId = `${userId}${postId}`;
 
+  const repliedPost = await postsRepository.getPostById(postId);
+  const userToNotify = repliedPost.usr_id;
+  await notificationsRepository.notify(userId, userToNotify, 'postLike', null, postId);
+
   return likeId;
 }
 
@@ -178,13 +185,13 @@ async function unshare(userId, postId) {
   return deletedShare.affectedRows;
 }
 
-// Query
+// Explore querys
 
 async function getUsersByName(name) {
   const pool = await database.getPool();
-  const queryName = `%${name}%`;
+  const nameQuery = `%${name}%`;
   const query = 'SELECT * FROM `user` WHERE usr_name LIKE ? OR usr_nickname LIKE ?';
-  const [users] = await pool.query(query, [queryName, queryName]);
+  const [users] = await pool.query(query, [nameQuery, nameQuery]);
 
   return users;
 }
@@ -215,13 +222,12 @@ async function getUsersByProvince(province) {
 
 async function getUsersByTeam(team) {
   const pool = await database.getPool();
-  const query = 'SELECT * FROM `user` WHERE usr_team = ?';
-  const [users] = await pool.query(query, team);
+  const teamQuery = `%${team}%`;
+  const query = `SELECT * FROM user u INNER JOIN team t ON u.usr_team = t.team_id WHERE t.team_name LIKE ?`;
+  const [users] = await pool.query(query, teamQuery);
 
   return users;
 }
-
-// Order
 
 async function getUsersByAge(order) {
   const pool = await database.getPool();
@@ -261,3 +267,5 @@ module.exports = {
   getUsersByAge,
   getUsersByRank,
 };
+
+const postsRepository = require('./posts-repository');
