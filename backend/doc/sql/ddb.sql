@@ -9,6 +9,8 @@ team_email VARCHAR(100) NOT NULL,
 team_password VARCHAR(255) NOT NULL,
 foundation_date DATE,
 team_logo VARCHAR(255),
+team_header VARCHAR(255),
+team_bio VARCHAR(500),
 province VARCHAR(40),
 tel CHAR(9),
 PRIMARY KEY (team_id)
@@ -26,6 +28,7 @@ usr_birth DATE,
 tel CHAR(9),
 province VARCHAR(40),
 usr_photo VARCHAR(255),
+usr_header VARCHAR(255),
 usr_bio VARCHAR(500),
 fav_team VARCHAR(40),
 usr_team INT,
@@ -59,18 +62,18 @@ CREATE TABLE `comment` (
 cmnt_id INT NOT NULL AUTO_INCREMENT,
 usr_id INT NOT NULL,
 cmnt_content VARCHAR(255),
-post_replied INT,
+post_replied INT NOT NULL,
 PRIMARY KEY (cmnt_id),
 FOREIGN KEY (usr_id) REFERENCES `user` (usr_id),
 FOREIGN KEY (post_replied) REFERENCES post (post_id)
 );
 
 CREATE TABLE user_shares (
-usr_id INT NOT NULL,
-post_id INT NOT NULL,
-PRIMARY KEY (usr_id, post_id),
-FOREIGN KEY (usr_id) REFERENCES `user` (usr_id),
-FOREIGN KEY (post_id) REFERENCES post (post_id)
+usr_sharing INT NOT NULL,
+post_shared INT NOT NULL,
+PRIMARY KEY (usr_sharing, post_shared),
+FOREIGN KEY (usr_sharing) REFERENCES `user` (usr_id),
+FOREIGN KEY (post_shared) REFERENCES post (post_id)
 );
 
 CREATE TABLE recruitment_request (

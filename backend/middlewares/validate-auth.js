@@ -6,7 +6,8 @@ const { JWT_SECRET } = process.env;
 function validateAuth(req, res, next) {
   try {
     const token = req.headers.authorization;
-    jwt.verify(token, JWT_SECRET);
+    const decodedToken = jwt.verify(token, JWT_SECRET);
+    req.auth = decodedToken;
 
     next();
   } catch (error) {

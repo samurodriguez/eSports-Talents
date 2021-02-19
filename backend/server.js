@@ -6,6 +6,8 @@ const express = require('express');
 const fs = require('fs');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const fileUpload = require('express-fileupload');
 
 // Controllers
 const {
@@ -17,7 +19,6 @@ const {
   notificationsController,
 } = require('./controllers');
 const { validateAuth, notFound } = require('./middlewares');
-const { notificationsRepository } = require('./repositories');
 
 // Variables
 const port = process.env.SERVER_PORT;
@@ -30,7 +31,14 @@ const accessLogStream = fs.createWriteStream('./access.txt', { flags: 'a' });
 
 // Middlewares
 app.use(morgan('combined', { immediate: true, stream: accessLogStream }));
+app.use(cors());
 app.use(bodyParser.json());
+app.use(
+  fileUpload({
+    createParentPath: true,
+  })
+);
+app.use(express.static('uploads'));
 
 // Signup
 app.post('/signup', usersController.register);
@@ -45,21 +53,28 @@ app.post('/login', usersController.login);
 // Users
 app.get('/home', validateAuth, postsController.getFollowingUsersPosts);
 app.get('/explore', usersController.explore);
+app.post('/upload-photos', validateAuth, usersController.uploadAvatar);
+app.post('/upload-header', validateAuth, usersController.uploadHeader);
 app.get('/user/:userId', usersController.getProfile);
 app.put('/user/:userId/update', validateAuth, usersController.update);
 app.post('/user/:userId/follow', validateAuth, usersController.followUser);
+app.get('/user/:userId/follow_check', validateAuth, usersController.checkUserFollow);
 app.delete('/user/:userId/unfollow', validateAuth, usersController.unfollowUser);
 
 // Teams
 app.get('/team/:teamId', teamsController.getTeamProfile);
+app.get('/teams', teamsController.getListOfTeams);
 app.put('/team/:teamId/update', validateAuth, teamsController.updateTeamProfile);
 
 // Posts
 app.get('/post/:postId', postsController.getPost);
+app.delete('/post/:postId/delete', postsController.deletePost);
 app.post('/home', validateAuth, postsController.post);
 app.post('/post/:postId/like', validateAuth, usersController.userLikesPost);
+app.get('/post/:postId/like_check', validateAuth, usersController.checkUserLike);
 app.delete('/post/:postId/unlike', validateAuth, usersController.userUnlikesPost);
 app.post('/post/:postId/share', validateAuth, usersController.userSharesPost);
+app.get('/post/:postId/share_check', validateAuth, usersController.checkUserShare);
 app.delete('/post/:postId/unshare', validateAuth, usersController.userUnsharesPost);
 
 // Comments

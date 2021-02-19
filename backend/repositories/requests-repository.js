@@ -44,9 +44,11 @@ async function getUserRequests(userId, role) {
 
   let query = '';
   if (role === 'scout') {
-    query = 'SELECT * FROM recruitment_request WHERE scout_id = ?';
+    query =
+      'SELECT r.scout_id, r.player_id, u.usr_photo, u.usr_name, u.usr_lastname, r.req_title, r.req_content, r.req_status, r.req_date FROM recruitment_request r INNER JOIN user u ON r.player_id = u.usr_id WHERE scout_id = ?';
   } else if (role === 'player') {
-    query = 'SELECT * FROM recruitment_request WHERE player_id = ?';
+    query =
+      'SELECT r.scout_id, r.player_id, u.usr_photo, u.usr_name, u.usr_lastname, r.req_title, r.req_content, r.req_status, r.req_date FROM recruitment_request r INNER JOIN user u ON r.scout_id = u.usr_id WHERE player_id = ?';
   } else if (role === 'amateur') {
     throw new Error('Los usuarios amateur no pueden recibir ni enviar solicitudes');
   }

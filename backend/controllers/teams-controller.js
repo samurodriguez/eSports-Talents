@@ -17,11 +17,12 @@ async function registerTeam(req, res) {
       logo: Joi.string().max(255).allow(null, ''),
       province: Joi.string().max(40).allow(null, ''),
       tel: Joi.string().max(9).allow(null, ''),
+      bio: Joi.string().max(500).allow(null, ''),
     });
 
     await registerSchema.validateAsync(req.body);
 
-    const { name, email, password, foundationDate, logo, province, tel } = req.body;
+    const { name, email, password, foundationDate, logo, province, tel, bio } = req.body;
 
     const team = await teamsRepository.getTeamByEmail(email);
 
@@ -32,7 +33,16 @@ async function registerTeam(req, res) {
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
-    const teamId = await teamsRepository.createTeam(name, email, passwordHash, foundationDate, logo, province, tel);
+    const teamId = await teamsRepository.createTeam(
+      name,
+      email,
+      passwordHash,
+      foundationDate,
+      logo,
+      province,
+      tel,
+      bio
+    );
     return res.send({ teamId: teamId });
   } catch (err) {
     if (err.name === 'ValidationError') {
@@ -73,15 +83,16 @@ async function getTeamProfile(req, res) {
 async function updateTeamProfile(req, res) {
   try {
     const updateSchema = Joi.object({
-      name: Joi.string().max(40).allow(null),
-      email: Joi.string().email().max(100).allow(null),
-      password: Joi.string().min(4).max(20).allow(null),
+      name: Joi.string().max(40).allow(null, ''),
+      email: Joi.string().email().max(100).allow(null, ''),
+      password: Joi.string().min(4).max(20).allow(null, ''),
       repeatPassword: Joi.ref('password'),
-      foundationDate: Joi.string().max(20).allow(null),
-      logo: Joi.string().max(255).allow(null),
-      province: Joi.string().max(40).allow(null),
-      tel: Joi.string().max(9).allow(null),
-      playerToRemove: Joi.string().allow(null),
+      foundationDate: Joi.string().max(20).allow(null, ''),
+      logo: Joi.string().max(255).allow(null, ''),
+      province: Joi.string().max(40).allow(null, ''),
+      tel: Joi.string().max(9).allow(null, ''),
+      bio: Joi.string().max(500).allow(null, ''),
+      playerToRemove: Joi.string().allow(null, ''),
     });
 
     await updateSchema.validateAsync(req.body);
@@ -97,7 +108,7 @@ async function updateTeamProfile(req, res) {
       throw error;
     }
 
-    const { name, email, password, foundationDate, logo, province, tel, playerToRemove } = req.body;
+    const { name, email, password, foundationDate, logo, province, tel, bio, playerToRemove } = req.body;
 
     const team = await teamsRepository.getTeamById(teamId);
 
@@ -121,6 +132,7 @@ async function updateTeamProfile(req, res) {
       logo || team.team_logo,
       province || team.province,
       tel || team.tel,
+      bio || team.team_bio,
       teamId
     );
 
@@ -142,4 +154,15 @@ async function updateTeamProfile(req, res) {
   }
 }
 
-module.exports = { registerTeam, getTeamProfile, updateTeamProfile };
+async function getListOfTeams(req, res) {
+  try {
+    const teams = await teamsRepository.getListOfTeams();
+    res.send(teams);
+  } catch (err) {
+    res.status(err.status || 500);
+    console.log(err);
+    res.send({ error: err.message });
+  }
+}
+
+module.exports = { registerTeam, getTeamProfile, updateTeamProfile, getListOfTeams };

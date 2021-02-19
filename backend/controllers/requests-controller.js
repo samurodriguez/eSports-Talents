@@ -64,7 +64,7 @@ async function sendRequest(req, res) {
       from: 'eSports Talents <esportstalents@outlook.com>',
       to: `${player.usr_email}`,
       subject: `¡Nueva solicitud de reclutamiento!`,
-      text: `¡Hola ${player.usr_name}!\nTienes una nueva solicitud de reclutamiento de ${scout.usr_name}, puedes consultarla desde http://localhost:8080/requests/${scoutId}/${playerId} o aceptarla desde http://localhost:8080/requests/${scoutId}/${playerId}/accept`,
+      html: `<h1>¡Hola ${player.usr_name}!</h1>\n<p>Tienes una nueva solicitud de reclutamiento de ${scout.usr_name}, puedes consultarla desde <a href="http://localhost:3000/requests">aquí</a></p>`,
     };
     await mg.messages().send(data);
 

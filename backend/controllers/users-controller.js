@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const mailgun = require('mailgun-js');
+const sharp = require('sharp');
+const uuid = require('uuid');
 const { usersRepository, teamsRepository, postsRepository } = require('../repositories');
 
 async function register(req, res) {
@@ -11,20 +13,20 @@ async function register(req, res) {
     const registerSchema = Joi.object({
       role: Joi.string().valid('amateur', 'player', 'scout').required(),
       name: Joi.string().max(40).required(),
-      lastname: Joi.string().max(100).allow(null),
+      lastname: Joi.string().max(100).allow(null, ''),
       email: Joi.string().email().max(100).required(),
       nickname: Joi.string().max(40).required(),
       password: Joi.string().min(4).max(20).required(),
       repeatPassword: Joi.ref('password'),
-      birth: Joi.string().max(20).allow(null),
-      tel: Joi.string().max(9).allow(null),
-      province: Joi.string().max(40).allow(null),
-      photo: Joi.string().max(255).allow(null),
-      bio: Joi.string().max(500).allow(null),
-      fav_team: Joi.string().max(40).allow(null),
-      team: Joi.string().max(40).allow(null),
-      position: Joi.string().valid('top', 'jungle', 'mid', 'adc', 'support').allow(null),
-      rank: Joi.string().max(2).allow(null),
+      birth: Joi.string().max(20).allow(null, ''),
+      tel: Joi.string().max(9).allow(null, ''),
+      province: Joi.string().max(40).allow(null, ''),
+      photo: Joi.string().max(255).allow(null, ''),
+      bio: Joi.string().max(500).allow(null, ''),
+      fav_team: Joi.string().max(40).allow(null, ''),
+      team: Joi.string().max(40).allow(null, ''),
+      position: Joi.string().valid('top', 'jungle', 'mid', 'adc', 'support').allow(null, ''),
+      rank: Joi.string().max(2).allow(null, ''),
     });
 
     await registerSchema.validateAsync(req.body);
@@ -79,7 +81,7 @@ async function register(req, res) {
       from: 'eSports Talents <esportstalents@outlook.com>',
       to: `${email}`,
       subject: `¡Bienvenido ${name}!`,
-      text: `¡Bienvenido a eSports Talents ${name}!\nEsperamos que disfrutes de la página, si tienes alguna duda o problema no dudes en contactar con nuestro equipo de soporte :)`,
+      html: `<h1>¡Bienvenido a eSports Talents ${name}!</h1>\n<p>Esperamos que disfrutes de la página, si tienes alguna duda o problema no dudes en contactar con nuestro equipo de soporte :)</p>`,
     };
     await mg.messages().send(data);
 
@@ -97,21 +99,21 @@ async function register(req, res) {
 async function update(req, res) {
   try {
     const updateSchema = Joi.object({
-      name: Joi.string().max(40).allow(null),
-      lastname: Joi.string().max(100).allow(null),
-      email: Joi.string().email().max(100).allow(null),
-      nickname: Joi.string().max(40).allow(null),
-      password: Joi.string().min(4).max(20).allow(null),
+      name: Joi.string().max(40).allow(null, ''),
+      lastname: Joi.string().max(100).allow(null, ''),
+      email: Joi.string().email().max(100).allow(null, ''),
+      nickname: Joi.string().max(40).allow(null, ''),
+      password: Joi.string().min(4).max(20).allow(null, ''),
       repeatPassword: Joi.ref('password'),
-      birth: Joi.string().max(20).allow(null),
-      tel: Joi.string().max(9).allow(null),
-      province: Joi.string().max(40).allow(null),
-      photo: Joi.string().max(255).allow(null),
-      bio: Joi.string().max(500).allow(null),
-      fav_team: Joi.string().max(40).allow(null),
-      team: Joi.string().max(40).allow(null),
-      position: Joi.string().valid('top', 'jungle', 'mid', 'adc', 'support').allow(null),
-      rank: Joi.string().max(20).allow(null),
+      birth: Joi.string().max(20).allow(null, ''),
+      tel: Joi.string().max(9).allow(null, ''),
+      province: Joi.string().max(40).allow(null, ''),
+      photo: Joi.string().max(255).allow(null, ''),
+      bio: Joi.string().max(500).allow(null, ''),
+      fav_team: Joi.string().max(40).allow(null, ''),
+      team: Joi.string().max(40).allow(null, ''),
+      position: Joi.string().valid('top', 'jungle', 'mid', 'adc', 'support').allow(null, ''),
+      rank: Joi.string().max(20).allow(null, ''),
     });
 
     await updateSchema.validateAsync(req.body);
@@ -136,7 +138,6 @@ async function update(req, res) {
       birth,
       tel,
       province,
-      photo,
       bio,
       fav_team,
       team,
@@ -167,7 +168,6 @@ async function update(req, res) {
       birth || user.usr_birth,
       tel || user.tel,
       province || user.province,
-      photo || user.usr_photo,
       bio || user.usr_bio,
       fav_team || user.fav_team,
       team || user.usr_team,
@@ -186,6 +186,78 @@ async function update(req, res) {
     }
     res.status(err.status || 500);
     console.log(err);
+    res.send({ error: err.message });
+  }
+}
+
+async function uploadAvatar(req, res) {
+  try {
+    if (!req.files) {
+      const error = new Error('El archivo no existe');
+      error.status = 409;
+      throw error;
+    } else {
+      const { userRole } = req.auth;
+      const userId = req.auth.teamId || req.auth.userId;
+
+      const avatar = req.files.avatar;
+      const imageId = uuid.v4();
+      const image = sharp(avatar.data);
+      image.resize(400, 400);
+      await image.toFile(`./uploads/${imageId}.jpg`);
+
+      if (userRole === 'team') {
+        await teamsRepository.updateTeamLogo(`${imageId}.jpg`, userId);
+      } else {
+        await usersRepository.updateUserPhoto(`${imageId}.jpg`, userId);
+      }
+
+      res.send({
+        message: 'El archivo se ha subido correctamente',
+        data: {
+          avatar: `${imageId}.jpg`,
+        },
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500);
+    res.send({ error: err.message });
+  }
+}
+
+async function uploadHeader(req, res) {
+  try {
+    if (!req.files) {
+      const error = new Error('El archivo no existe');
+      error.status = 409;
+      throw error;
+    } else {
+      const { userRole } = req.auth;
+      const userId = req.auth.teamId || req.auth.userId;
+
+      const header = req.files.header;
+      const imageId = uuid.v4();
+      const image = sharp(header.data);
+      image.resize(1500, 500);
+      await image.toFile(`./uploads/${imageId}.jpg`);
+
+      if (userRole === 'team') {
+        await teamsRepository.updateTeamHeader(`${imageId}.jpg`, userId);
+      } else {
+        await usersRepository.updateUserHeader(`${imageId}.jpg`, userId);
+      }
+
+      res.send({
+        message: 'El archivo se ha subido correctamente',
+        data: {
+          avatar: `${imageId}.jpg`,
+        },
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500);
     res.send({ error: err.message });
   }
 }
@@ -220,10 +292,15 @@ async function login(req, res) {
         throw error;
       }
 
-      const tokenPayload = { teamId: team.team_id, teamName: team.team_name, teamEmail: team.team_email };
+      const tokenPayload = {
+        teamId: team.team_id,
+        teamName: team.team_name,
+        teamEmail: team.team_email,
+        userRole: 'team',
+      };
       const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '30d' });
 
-      res.send(token);
+      res.send({ accessToken: token });
       return true;
     }
     const isPasswordOk = await bcrypt.compare(password, user.usr_password);
@@ -242,7 +319,7 @@ async function login(req, res) {
     };
     const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '30d' });
 
-    res.send(token);
+    res.send({ accessToken: token });
   } catch (err) {
     if (err.name === 'ValidationError') {
       err.status = 400;
@@ -266,10 +343,13 @@ async function getProfile(req, res) {
       throw new Error('El usuario no existe');
     }
 
+    const followersCount = await usersRepository.getUserFollowersCount(userId);
+    const followingCount = await usersRepository.getUserFollowingCount(userId);
+
     const userPosts = await postsRepository.getUserPosts(userId);
 
     const profile = {
-      userInfo: user,
+      userInfo: { ...user, ...followersCount, ...followingCount },
       userPosts: userPosts,
     };
 
@@ -297,6 +377,21 @@ async function followUser(req, res) {
     if (err.errno === 1062) {
       err.message = 'Ya sigues a este usuario';
     }
+    console.log(err);
+    res.send({ Error: err.message });
+  }
+}
+
+async function checkUserFollow(req, res) {
+  try {
+    const token = req.headers.authorization;
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userFollowing = decodedToken.userId;
+    const userFollowed = req.params.userId;
+    const followCheck = await usersRepository.followCheck(userFollowing, userFollowed);
+
+    res.send(followCheck);
+  } catch (err) {
     console.log(err);
     res.send({ Error: err.message });
   }
@@ -340,6 +435,21 @@ async function userLikesPost(req, res) {
   }
 }
 
+async function checkUserLike(req, res) {
+  try {
+    const token = req.headers.authorization;
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userLiking = decodedToken.userId;
+    const postId = req.params.postId;
+    const likeCheck = await usersRepository.likeCheck(userLiking, postId);
+
+    res.send(likeCheck);
+  } catch (err) {
+    console.log(err);
+    res.send({ Error: err.message });
+  }
+}
+
 async function userUnlikesPost(req, res) {
   try {
     const token = req.headers.authorization;
@@ -356,7 +466,7 @@ async function userUnlikesPost(req, res) {
     res.send({ message: 'Ya no te gusta el post' });
   } catch (err) {
     console.log(err);
-    res.send(err.message);
+    res.send({ Error: err.message });
   }
 }
 
@@ -377,7 +487,22 @@ async function userSharesPost(req, res) {
       err.message = 'El post no existe';
     }
     console.log(err);
-    res.send(err.message);
+    res.send({ Error: err.message });
+  }
+}
+
+async function checkUserShare(req, res) {
+  try {
+    const token = req.headers.authorization;
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userSharing = decodedToken.userId;
+    const postShared = req.params.postId;
+    const shareCheck = await usersRepository.shareCheck(userSharing, postShared);
+
+    res.send(shareCheck);
+  } catch (err) {
+    console.log(err);
+    res.send({ Error: err.message });
   }
 }
 
@@ -397,7 +522,7 @@ async function userUnsharesPost(req, res) {
     res.send({ message: 'Ya no compartes post' });
   } catch (err) {
     console.log(err);
-    res.send(err.message);
+    res.send({ Error: err.message });
   }
 }
 
@@ -437,20 +562,25 @@ async function explore(req, res) {
     res.send(users);
   } catch (err) {
     console.log(err);
-    res.send(err.message);
+    res.send({ Error: err.message });
   }
 }
 
 module.exports = {
   register,
   update,
+  uploadAvatar,
+  uploadHeader,
   login,
   getProfile,
   followUser,
+  checkUserFollow,
   unfollowUser,
   userLikesPost,
+  checkUserLike,
   userUnlikesPost,
   userSharesPost,
+  checkUserShare,
   userUnsharesPost,
   explore,
 };

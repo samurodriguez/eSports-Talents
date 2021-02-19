@@ -24,7 +24,8 @@ async function notify(userActing, userToNotify, activityType, commentId, postId)
 async function getUserNotifications(userId) {
   const pool = await database.getPool();
 
-  const query = 'SELECT * FROM user_notification WHERE usr_to_notify = ?';
+  const query =
+    'SELECT u.usr_name, u.usr_lastname, u.usr_photo, n.noti_id, n.activity_type, n.cmnt_id, n.post_id, n.noti_date, p.post_content, c.cmnt_content FROM user_notification n INNER JOIN user u ON u.usr_id = n.usr_acting LEFT JOIN post p ON n.post_id = p.post_id LEFT JOIN comment c ON n.cmnt_id = c.cmnt_id WHERE usr_to_notify = ? ORDER BY noti_date DESC';
   const [notifications] = await pool.query(query, userId);
 
   return notifications;

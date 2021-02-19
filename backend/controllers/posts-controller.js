@@ -2,7 +2,7 @@
 
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
-const { postsRepository, usersRepository, commentsRepository } = require('../repositories');
+const { postsRepository, commentsRepository } = require('../repositories');
 
 async function post(req, res) {
   try {
@@ -29,6 +29,26 @@ async function post(req, res) {
     console.log(err);
     res.status(err.status || 500);
     res.send({ error: err.message });
+  }
+}
+
+async function deletePost(req, res) {
+  try {
+    const token = req.headers.authorization;
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const { userId } = decodedToken;
+    const postId = req.params.postId;
+
+    const affectedRows = await postsRepository.deletePost(postId, userId);
+
+    if (affectedRows === 0) {
+      throw new Error('El post no existe');
+    }
+
+    res.send({ message: 'Post eliminado con éxito' });
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
   }
 }
 
@@ -63,7 +83,7 @@ async function getPost(req, res) {
     }
 
     const postWithComments = {
-      post: post,
+      post: [post],
       comments: comments,
     };
 
@@ -78,4 +98,4 @@ async function getPost(req, res) {
   }
 }
 
-module.exports = { post, getFollowingUsersPosts, getPost };
+module.exports = { post, deletePost, getFollowingUsersPosts, getPost };
